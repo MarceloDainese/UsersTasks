@@ -1,0 +1,18 @@
+Para o Sistema funcionar
+
+Precisa entrar no diretório backend e fazer os seguintes comandos no Prompt de comando
+composer install
+php artisan key:generate
+
+Rodar as Migrations e Seed para gerar o primeiro usuário
+
+Para o JWT - rodar
+digite este comando
+
+php artisan jwt:secret
+
+Pronto o Laravel vai estar rodando
+
+_________________________________________________________________________________________
+
+Vue tem que instalar suas dependencias e o diretorio node_modules

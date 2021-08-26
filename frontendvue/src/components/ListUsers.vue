@@ -16,13 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id" class="table-active">
-            <th scope="row"> </th>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.phone }}</td>
-            <td> <a href="">Visualizar</a>  | Alterar | Deletar</td>
-          </tr>
+          <List v-for="(user, index) in users" :key="user.id" :user="user" :index="index" @visualizar="visualizar" @alterar="alterar" @deletar="deletar" class="table-active" />          
         </tbody>
       </table>
     </div>
@@ -30,18 +24,20 @@
 </template>
 <script>
 import axios from 'axios';
+import List from './List.vue';
 
 export default {
   name: "ListUsers",
   props: {
   },
+  components:{
+      List
+  },
   data() {
     return{
       users: [],
+
     }
-  },
-  mounted(){
-    this.getUsers();
   },
   methods: {
     async getUsers(){
@@ -53,7 +49,13 @@ export default {
           console.error("Ocorreu um erro no API Users");
 
         }
+    },
+    visualizar(id){
+      alert(id);
     }
+  },
+  mounted(){
+     this.getUsers();
   }
 }
 </script>

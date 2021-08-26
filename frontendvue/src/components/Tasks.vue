@@ -22,27 +22,29 @@
             <td>{{ task.done }}</td>
             <td>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" v-if="task.status==1" checked>
-                <label class="form-check-label" for="exampleRadios1">
+                <input class="form-check-input" type="radio" v-model="status[task.id]" id="aFazer" value="1" v-if="task.status==1" checked>
+                <label class="form-check-label" for="aFazer">
                   A Fazer
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" v-if="task.status==2" checked>
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" v-if="task.status!=2">
-                <label class="form-check-label" for="exampleRadios2">
+                <input class="form-check-input" type="radio" v-model="status[task.id]" id="emAndamento" value="2" v-if="task.status==2" checked>
+                <input class="form-check-input" type="radio" v-model="status[task.id]" id="emAndamento" value="2" v-if="task.status!=2">
+                <label class="form-check-label" for="emAndamento">
                   Em Andamento
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" v-if="task.status==3" checked>
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" v-if="task.status!=3">
-                <label class="form-check-label" for="exampleRadios3">
+                <input class="form-check-input" type="radio" v-model="status[task.id]" id="Concluido" value="3" v-if="task.status==3" checked>
+                <input class="form-check-input" type="radio" v-model="status[task.id]" id="Concluido" value="3" v-if="task.status!=3">
+                <label class="form-check-label" for="Concluido">
                   Concluido
                 </label>
               </div>
             </td>
-            <td>Alterar | Deletar
+            <td>
+              <button class="btn btn-primary btn-sm" @click="updateTask(task.id)">Alterar</button> | 
+              <button class="btn btn-danger btn-sm" @click="deleteTask(task.id)">Deletar</button>
             </td>
           </tr>
         </tbody>
@@ -61,6 +63,7 @@ export default {
   data() {
     return{
       tasks: [],
+      status: [],
     }
   },
   mounted(){
@@ -68,9 +71,25 @@ export default {
   },
   methods: {
     async gettasks(){
-      const response = await axios.get('tasks');
+        const response = await axios.get('tasks');
         if(response.status == 200){
           this.tasks = response.data;
+        }
+        else {
+          console.error("Ocorreu um erro no API tasks");
+
+        }
+    },
+    updateTask(id){
+        alert(id);
+    },
+
+    async deleteTask(id){
+        const responseDelete = await axios.delete('tasks/delete?id='+id);
+        if(responseDelete.status == 200){
+          //alert('Deletou');
+          //this.$router.push('/Tasks');
+          this.gettasks();
         }
         else {
           console.error("Ocorreu um erro no API tasks");
@@ -81,4 +100,8 @@ export default {
 }
 </script>
 <style scoped>
+.ListTask{
+  font-weight: bold;
+  color: blueviolet;
+}
 </style>

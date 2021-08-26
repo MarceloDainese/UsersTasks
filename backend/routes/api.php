@@ -29,8 +29,9 @@ Route::get('main/', [MainController::class, 'index']);
 
 Route::get('main/{id?}', [MainController::class, 'show']);
 Route::post('main/edit', [MainController::class, 'edit']);
-Route::get('delete/{id?}', [MainController::class, 'destroy']);
+Route::delete('delete/{id?}', [MainController::class, 'destroy']);
 
+Route::delete('tasks/delete/{id?}', [Task::class, 'destroy']);
 
 Route::group(['middleware'=>['apiJwt']], function(){
     Route::get('users', [UserControllerApi::class, 'index']);

@@ -137,5 +137,5 @@ class MainController extends Controller
         if(isset($user)){
             echo json_encode(['message' => 'Deletado com sucesso']);
         };
-     }
+    }
 }

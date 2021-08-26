@@ -110,8 +110,13 @@ class Task extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->query('id');
+        $task = ModelsTask::find($id);
+        $task->delete();
+        if(isset($task)){
+            echo json_encode(['message' => 'Tarefa deletada com sucesso']);
+        };
     }
 }
